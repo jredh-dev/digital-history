@@ -55,4 +55,6 @@ digital-history export --username jredh --format json
 
 ## License
 
-MIT License - See LICENSE file for details.
+AGPL-3.0 License - See LICENSE file for details.
+
+This project is licensed under the GNU Affero General Public License v3.0, which requires that any modified versions or network services using this code must also be open source.
