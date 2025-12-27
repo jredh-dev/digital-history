@@ -121,11 +121,11 @@ func (s *Storage) initSchema() error {
 		subreddit TEXT NOT NULL,
 		encrypted_data BLOB NOT NULL,
 		created_at TIMESTAMP NOT NULL,
-		collected_at TIMESTAMP NOT NULL,
-		INDEX idx_username (username),
-		INDEX idx_subreddit (subreddit),
-		INDEX idx_created_at (created_at)
+		collected_at TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS idx_posts_username ON reddit_posts(username);
+	CREATE INDEX IF NOT EXISTS idx_posts_subreddit ON reddit_posts(subreddit);
+	CREATE INDEX IF NOT EXISTS idx_posts_created_at ON reddit_posts(created_at);
 
 	CREATE TABLE IF NOT EXISTS reddit_comments (
 		id TEXT PRIMARY KEY,
@@ -134,11 +134,11 @@ func (s *Storage) initSchema() error {
 		subreddit TEXT NOT NULL,
 		encrypted_data BLOB NOT NULL,
 		created_at TIMESTAMP NOT NULL,
-		collected_at TIMESTAMP NOT NULL,
-		INDEX idx_username (username),
-		INDEX idx_subreddit (subreddit),
-		INDEX idx_created_at (created_at)
+		collected_at TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS idx_comments_username ON reddit_comments(username);
+	CREATE INDEX IF NOT EXISTS idx_comments_subreddit ON reddit_comments(subreddit);
+	CREATE INDEX IF NOT EXISTS idx_comments_created_at ON reddit_comments(created_at);
 
 	CREATE TABLE IF NOT EXISTS analysis_results (
 		id TEXT PRIMARY KEY,
@@ -148,11 +148,11 @@ func (s *Storage) initSchema() error {
 		category TEXT NOT NULL,
 		severity TEXT NOT NULL,
 		encrypted_data BLOB NOT NULL,
-		analyzed_at TIMESTAMP NOT NULL,
-		INDEX idx_username (username),
-		INDEX idx_category (category),
-		INDEX idx_severity (severity)
+		analyzed_at TIMESTAMP NOT NULL
 	);
+	CREATE INDEX IF NOT EXISTS idx_analysis_username ON analysis_results(username);
+	CREATE INDEX IF NOT EXISTS idx_analysis_category ON analysis_results(category);
+	CREATE INDEX IF NOT EXISTS idx_analysis_severity ON analysis_results(severity);
 	`
 
 	_, err := s.db.Exec(schema)
